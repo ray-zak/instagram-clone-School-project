@@ -25,6 +25,7 @@ Develop a simplified version of Instagram.
 * Tianyang Jin, Github username: Tianyang-Jin11
 * Rimoun Zakhour, Github username: ray-zak
 * Marc Jenno, Github username: g305tmp
+* Thierno Ibrahima Barry, Github username: TNT05
 
 ## Technologies
 #### Chosen
