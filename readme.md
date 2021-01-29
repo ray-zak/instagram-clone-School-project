@@ -10,7 +10,13 @@ Develop a simplified version of Instagram.
 
 ## Core Features
 
-* (Add Core Features)
+* Posting a picture (with text description)
+* Following a user
+* Leave comments to a posted picture
+
+## Additional Features
+
+* To be decided
 
 ## Team Members
 
