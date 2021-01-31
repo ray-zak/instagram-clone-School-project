@@ -16,7 +16,7 @@ Develop a simplified version of Instagram.
 
 ## Additional Features
 
-* To be decided
+* To be decided (Sprint 3)
 
 ## Team Members
 
