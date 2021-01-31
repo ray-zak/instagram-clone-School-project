@@ -10,9 +10,9 @@ Develop a simplified version of Instagram.
 
 ## Core Features
 
-* Posting a picture (with text description)
-* Following a user
-* Leave comments to a posted picture
+* Posting a picture (with text description) (#7)
+* Following a user (#5)
+* Leave comments to a posted picture (#2)
 
 ## Additional Features
 
