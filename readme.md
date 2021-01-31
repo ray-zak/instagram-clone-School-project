@@ -6,7 +6,7 @@ Develop a simplified version of Instagram.
 
 ## Project Description
 
-* (Add Project Description)
+* A simplified version of Instagram that allows users to share photos, comment on shared photos, and follow other users.
 
 ## Core Features
 
