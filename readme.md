@@ -6,7 +6,7 @@ Develop a simplified version of Instagram.
 
 ## Project Description
 
-* A simplified version of Instagram that allows users to share photos, comment on shared photos, and follow other users.
+* A simplified version of Instagram that allows users to share photos, comment on shared photos, and follow other users. Runs as a web app.
 
 ## Core Features
 
@@ -30,8 +30,6 @@ Develop a simplified version of Instagram.
 ## Technologies
 #### Chosen
 * ReactJS (Front-end)
-
-#### Not chosen yet but likely
 * NodeJS (Back-end)
 * MongoDB (Database)
 * Depending on requirements, some kind of object storage for large files (if the images are too large for mongo)
