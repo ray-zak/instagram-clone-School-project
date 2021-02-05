@@ -30,7 +30,7 @@ Develop a simplified version of Instagram.
 ## Technologies
 #### Chosen
 * ReactJS (Front-end)
-* NodeJS (Back-end)
+* ExpressJS (Back-end)
 * MongoDB (Database)
 * Depending on requirements, some kind of object storage for large files (if the images are too large for mongo)
 
