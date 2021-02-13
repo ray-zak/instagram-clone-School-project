@@ -2,8 +2,9 @@ import mongoose from "mongoose";
 const image_schema = new mongoose.Schema({
     caption: String,
     user: String,
-    image : String ,
-    comments: []
+    imageBase64 : String,
+    create_date: { type: Date, default: Date.now },
+    comments: [ { comment_ID: String, create_date: Date } ]
 
 });
 
