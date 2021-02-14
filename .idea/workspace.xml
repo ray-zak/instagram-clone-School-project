@@ -1,16 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="958cf251-9137-4b45-b409-10d7472b262a" name="Default Changelist" comment="#4 #9 login system now returns valid tokens for valid accounts and rejects invalid accounts">
-      <change afterPath="$PROJECT_DIR$/frontend/src/useToken.js" afterDir="false" />
+    <list default="true" id="958cf251-9137-4b45-b409-10d7472b262a" name="Default Changelist" comment="#4 #9 login now stores token in session storage and redirects to homepage. Subsequent accesses are automatically logged in.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/api/routes/userRouter.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/api/routes/userRouter.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/App.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/components/Login/login.component.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Login/login.component.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/create-user.component.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/homepage.component.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/homepage.component.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/navbar.component.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/navbar.component.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -113,7 +107,14 @@
       <option name="project" value="LOCAL" />
       <updated>1613282140019</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="#4 #9 login now stores token in session storage and redirects to homepage. Subsequent accesses are automatically logged in.">
+      <created>1613285878126</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1613285878126</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -137,7 +138,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="#9 pull in login/signup backend and refactor folder structure to clearly separate frontend and backend" />
     <MESSAGE value="#4 #9 login system now returns valid tokens for valid accounts and rejects invalid accounts" />
-    <option name="LAST_COMMIT_MESSAGE" value="#4 #9 login system now returns valid tokens for valid accounts and rejects invalid accounts" />
+    <MESSAGE value="#4 #9 login now stores token in session storage and redirects to homepage. Subsequent accesses are automatically logged in." />
+    <option name="LAST_COMMIT_MESSAGE" value="#4 #9 login now stores token in session storage and redirects to homepage. Subsequent accesses are automatically logged in." />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

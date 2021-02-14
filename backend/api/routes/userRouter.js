@@ -53,6 +53,7 @@ router.post("/register" , async (req , res)=>{
 
 
 
+        //TODO: probably shouldn't return all this info after a registration - an OK message would be fine
         const new_user = new user({                                  // creating the user_schema_object
             username: username,
             password: password_hash,
