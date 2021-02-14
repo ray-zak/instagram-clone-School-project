@@ -37,6 +37,7 @@ export default class CreateUser extends Component {
         }) */
     }
 
+    //TODO: ask for confirmation of password and check they match
     render() {
         return (
             <div>
@@ -51,7 +52,7 @@ export default class CreateUser extends Component {
                                 onChange={this.onChangeUsername}
                         />
                         <label>Password: </label>
-                        <input  type="text"
+                        <input  type="password"
                                 required
                                 className="form-control"
                                 value={this.state.password}

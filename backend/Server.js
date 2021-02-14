@@ -5,12 +5,6 @@ import mongoose from "mongoose";
 import userRouter from "./api/routes/userRouter.js";
 import dotenv from "dotenv";
 
-
-
-
-
-
-
 // app Config
 const app = express();
 const port =  process.env.PORT || 5000;
