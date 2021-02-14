@@ -1,38 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="958cf251-9137-4b45-b409-10d7472b262a" name="Default Changelist" comment="#9 pull in login/signup backend and refactor folder structure to clearly separate frontend and backend">
-      <change afterPath="$PROJECT_DIR$/backend/package.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/App.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/components/Login/Login.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/components/Login/login.component.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/components/navbar.component.js" afterDir="false" />
+    <list default="true" id="958cf251-9137-4b45-b409-10d7472b262a" name="Default Changelist" comment="#4 #9 login system now returns valid tokens for valid accounts and rejects invalid accounts">
+      <change afterPath="$PROJECT_DIR$/frontend/src/useToken.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DBmodels/Register_user_schema.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/DBmodels/Register_user_schema.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DBmodels/imageupload_schema.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/DBmodels/imageupload_schema.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/Server.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/routes/userRouter.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/api/routes/userRouter.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/test.txt" beforeDir="false" afterPath="$PROJECT_DIR$/backend/readme.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/favicon.ico" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/public/favicon.ico" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/public/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/logo192.png" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/public/logo192.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/logo512.png" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/public/logo512.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/public/manifest.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/robots.txt" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/public/robots.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.test.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/App.test.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/create-user.component.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/create-user.component.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/homepage.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/homepage.component.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/navbar.component.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/img/instagram logo.png" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/img/instagram logo.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/index.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/logo.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/reportWebVitals.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/reportWebVitals.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/setupTests.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/setupTests.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/api/routes/userRouter.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/api/routes/userRouter.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/Login/login.component.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Login/login.component.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/create-user.component.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/homepage.component.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/homepage.component.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/navbar.component.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/navbar.component.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,6 +21,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="CSS File" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -127,6 +106,14 @@
       <updated>1612488743982</updated>
       <workItem from="1612488787177" duration="4369000" />
     </task>
+    <task id="LOCAL-00001" summary="#4 #9 login system now returns valid tokens for valid accounts and rejects invalid accounts">
+      <created>1613282140019</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1613282140019</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -149,7 +136,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="#9 pull in login/signup backend and refactor folder structure to clearly separate frontend and backend" />
-    <option name="LAST_COMMIT_MESSAGE" value="#9 pull in login/signup backend and refactor folder structure to clearly separate frontend and backend" />
+    <MESSAGE value="#4 #9 login system now returns valid tokens for valid accounts and rejects invalid accounts" />
+    <option name="LAST_COMMIT_MESSAGE" value="#4 #9 login system now returns valid tokens for valid accounts and rejects invalid accounts" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

@@ -6,14 +6,16 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Navbar from "./components/navbar.component"
 import HomepageComponent from "./components/homepage.component";
 import Login from "./components/Login/login.component";
-//import CreateUser from "./components/create-user.component";
-
+import useToken from './useToken';
 
 
 function App() {
-    const [token, setToken] = useState();
+    //const [token, setToken] = useState();
+    const { token, setToken } = useToken();
 
-    //look for a JWT token to show user is already logged in
+    console.log("token in appjs", token);
+
+    //look for a JWT token to check if user is already logged in
     if(!token)
     {
         return(

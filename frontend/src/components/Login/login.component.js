@@ -1,4 +1,5 @@
 import React, { Component, useState } from 'react';
+import {Tab, Tabs} from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
 
@@ -17,8 +18,12 @@ async function loginUser(credentials) {
 }
 
 export default function Login({ setToken }) {
+    const [email, setEmail] = useState();
     const [username, setUserName] = useState();
     const [password, setPassword] = useState();
+
+    const [passwordconfirm, setPasswordConfirm] = useState();
+
 
     const handleSubmit = async e => {
         e.preventDefault();
@@ -45,16 +50,42 @@ export default function Login({ setToken }) {
         <div className="login-wrapper">
             <h1>Please Log In</h1>
             <form onSubmit={handleSubmit}>
-                <label>
-                    <p>Username</p>
-                    <input type="text" onChange={e => setUserName(e.target.value)} />
-                </label>
-                <label>
-                    <p>Password</p>
-                    <input type="password" onChange={e => setPassword(e.target.value)} />
-                </label>
+            <Tabs>
+                <Tab eventKey="login" title="Login">
+                    <label>
+                        <p>Username</p>
+                        <input type="text" onChange={e => setUserName(e.target.value)} />
+                    </label>
+                    <br></br>
+                    <label>
+                        <p>Password</p>
+                        <input type="password" onChange={e => setPassword(e.target.value)} />
+                    </label>
+                </Tab>
+                <Tab eventKey="signup" title="Sign Up">
+                    <label>
+                        <p>Email</p>
+                        <input type="text" onChange={e => setEmail(e.target.value)} />
+                    </label>
+                    <br></br>
+                    <label>
+                        <p>Username</p>
+                        <input type="text" onChange={e => setUserName(e.target.value)} />
+                    </label>
+                    <br></br>
+                    <label>
+                        <p>Password</p>
+                        <input type="password" onChange={e => setPassword(e.target.value)} />
+                    </label>
+                    <br></br>
+                    <label>
+                        <p>Confirm Password</p>
+                        <input type="password" onChange={e => setPasswordConfirm(e.target.value)} />
+                    </label>
+                </Tab>
+            </Tabs>
                 <div>
-                    <button type="submit">Submit</button>
+                    <button type="submit" className="btn btn-primary" style={{"width": "100%"}}>Submit</button>
                 </div>
             </form>
         </div>

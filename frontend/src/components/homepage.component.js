@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 
+//TODO: add some way of signing out (clear session storage, send request to backend to invalidate jwt, and go back to /)
 export default class HomepageComponent extends Component {
     render() {
         return (
