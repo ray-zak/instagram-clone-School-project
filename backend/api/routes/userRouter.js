@@ -5,8 +5,6 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
 
-
-
 export const router = express.Router();
 
 router.get("/",(req, res)=>{
@@ -23,8 +21,13 @@ router.post("/register" , async (req , res)=>{
         const email = req.body.email;
         const password = req.body.password;
         const username = req.body.username;
-        const followers = req.body.followers
-        const postsID = req.body.postsID;
+
+        // Followers and posts should be initially blank, not provided by API
+        // const followers = req.body.followers
+        // const postsID = req.body.postsID;
+        const followers = [];
+        const postsID = [];
+
 
         //console.log(email , password, username , followers , postsID);
 
@@ -50,6 +53,7 @@ router.post("/register" , async (req , res)=>{
 
 
 
+        //TODO: probably shouldn't return all this info after a registration - an OK message would be fine
         const new_user = new user({                                  // creating the user_schema_object
             username: username,
             password: password_hash,
@@ -87,7 +91,7 @@ router.post("/login" , async(req,res)=>{
 
         // looking for the existing user in DB
         const finding_user = await user.findOne({username: username}) ;
-       // console.log(finding_user);
+        console.log(finding_user);
 
         if(!finding_user){
             return res.status(400).json({msg: "No user matches this username "});
@@ -101,8 +105,11 @@ router.post("/login" , async(req,res)=>{
             return res.status(400).json({msg: "Invalid Password"});
         }
 
+        //console.log("before jwt line");
         // JWT token :  gives every logged in user a unique token that will be helpful for us to identify the user and use it if it is logged in or not
         const token = jwt.sign({id: finding_user._id} , process.env.JWT_SECRET);
+
+        //console.log("after jwt line");
 
         res.json({
             token,
@@ -113,10 +120,10 @@ router.post("/login" , async(req,res)=>{
         })
 
 
-
     }
     catch(err){
         res.status(500).json({Error: err.message});
+        //console.log(err);
     }
 })
 
@@ -126,8 +133,6 @@ router.post("/login" , async(req,res)=>{
 router.delete("/delete" , (res,req)=>{
 
 })
-
-
 
 export default router;
 
