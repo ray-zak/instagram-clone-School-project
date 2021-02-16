@@ -1,6 +1,6 @@
 import express from "express";
 import cors from "cors";
-import pusher from "pusher";
+//import pusher from "pusher";
 import mongoose from "mongoose";
 import userRouter from "./api/routes/userRouter.js";
 import dotenv from "dotenv";
