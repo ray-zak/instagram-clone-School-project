@@ -5,6 +5,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 import Navbar from "./components/navbar.component"
 import HomepageComponent from "./components/homepage.component";
+import Profile from "./components/Profile/Profile.component";
 import Login from "./components/Login/login.component";
 import useToken from './useToken';
 
@@ -35,6 +36,7 @@ function App() {
         <div className="container">
           <br/>
           <Route path="/" exact component={HomepageComponent} />
+          <Route path="/profile" exact component={Profile} />
         </div>
       </Router>
   );
