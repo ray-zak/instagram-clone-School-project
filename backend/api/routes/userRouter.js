@@ -1,6 +1,5 @@
 import express from "express";
-//import Register_user_schema from "../../DBmodels/Register_user_schema";       // importing Register-user-Schema
-import user from "../../DBmodels/Register_user_schema.js";                      // importing the user object (schema)
+import User from "../../DBmodels/Register_user_schema.js";                      // importing the user object (schema)
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
@@ -41,8 +40,8 @@ router.post("/register" , async (req , res)=>{
             return res.status(400).json({msg: "Password is too short"});
         }
         // checking if there is an existing user with the same email and username
-        const checking_existing_user_email = await user.findOne({email: email });   // checking the user in the database to find if there is an existing email address & username
-        const checking_existing_user_username = await user.findOne({username:username});
+        const checking_existing_user_email = await User.findOne({email: email });   // checking the user in the database to find if there is an existing email address & username
+        const checking_existing_user_username = await User.findOne({username:username});
         if(checking_existing_user_email!=null || checking_existing_user_username!=null){
             return res.status(400).json({msg: "An existing account with the same email address/username already exists"});
         }
@@ -54,7 +53,7 @@ router.post("/register" , async (req , res)=>{
 
 
         //TODO: probably shouldn't return all this info after a registration - an OK message would be fine
-        const new_user = new user({                                  // creating the user_schema_object
+        const new_user = new User({                                  // creating the user_schema_object
             username: username,
             password: password_hash,
             email: email,
@@ -90,7 +89,7 @@ router.post("/login" , async(req,res)=>{
         }
 
         // looking for the existing user in DB
-        const finding_user = await user.findOne({username: username}) ;
+        const finding_user = await User.findOne({username: username}) ;
         console.log(finding_user);
 
         if(!finding_user){
@@ -100,7 +99,7 @@ router.post("/login" , async(req,res)=>{
         // comparing the typed password with the hashed one in the database
        const matching_pass = await bcrypt.compare(password , finding_user.password);
 
-        // checking if the password does not  matche
+        // checking if the password does not  match
         if(!matching_pass){
             return res.status(400).json({msg: "Invalid Password"});
         }
@@ -113,9 +112,9 @@ router.post("/login" , async(req,res)=>{
 
         res.json({
             token,
-            username: finding_user.username,
-            email: finding_user.email,
-            id: finding_user._id
+                username: finding_user.username,
+                email: finding_user.email,
+                id: finding_user._id
 
         })
 

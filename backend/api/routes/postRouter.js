@@ -1,13 +1,8 @@
 import express from "express";
-import Image from "../../DBmodels/image_upload_schema.js";
-import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
-import Post from "../../DBmodels/post.js";
-import User from "../../DBmodels/Register_user_schema.js";
-//import auth from "../../helpers/auth.js"
+import Post from "../../DBmodels/post_schema.js";
+import authMiddleware from "../../api/authMiddleware.js";
 
-//require function is not working
-//const auth = require('../../helpers/auth.');
+
 
 export const router = express.Router();
 
@@ -26,72 +21,75 @@ export const router = express.Router();
 
 router.get("/",(req, res)=>{
 
-    res.send(" hello profile!");
+    res.send(" hello post router!");
 })
 
-//not working because auth is not working, need syntax help
-//router.get('/create-post', auth, (req,res) =>{
 
-//})
+//create a new post
+router.post('/addPost', authMiddleware, async (req,res) => {
 
-router.get('/all-posts', (req,res) => {
-    Post.find().sort({createdAt: -1})
-        .then((result) => {
-            res.send(result);
-        })
-        .catch((err) => {
-            console.log(err);
+    try {
+        const {caption,imageURL} = req.body;
+
+        console.log(req.user);
+        //res.send("ok")
+
+        //can set password to undefined so it is not stored in post
+        //req.user.password = undefined
+
+        //create new post with Post schema
+        const post = new Post({
+            caption: caption,
+            imageURL: imageURL,
+            postedBy: req.user
         });
-})
 
-router.post('/add-post', (req,res) => {
-    const {caption,imageURL} = req.body;
+        const saved_post = await post.save();
+        console.log(saved_post);
+        res.json(saved_post);
 
-    //need to make this middleware, express session, passport?
-    const {authorization} = req.headers
-    if(!authorization){
-        return res.status(401).json({error: "you must be logged in"})
     }
-    const token = authorization.replace("Bearer ", "")
-    jwt.verify(token, process.env.JWT_SECRET,(err,payload) => {
-        if(err){
-            return res.status(401).json({error: "you must be logged in"})
-        }
-        const {_id} = payload
-        User.findById(_id).then(userdata => {
-            req.user = userdata
-            //const name = userdata.username;
-            //const id = userdata._id;
-            console.log(_id);
+    catch(err) {
+        res.status(500).json({Error: err.message});
+        //console.log(err);
+    }
+
+});
+
+//get all posts made by a user (the user who is logged in)
+router.get('/my-post',authMiddleware,(req,res)=>{
+
+    Post.find({postedBy:req.user._id})
+        .populate("PostedBy","_id name")
+        .then(my_post=>{
+            res.json({my_post})
+            console.log(my_post)
         })
+        .catch(err=>{
+            console.log(err)
+        })
+})
+
+//gets all posts by all users sorted by most recent. Not really tested yet
+router.get('/all-posts', authMiddleware ,(req,res) => {
+
+    console.log('hello');
+
+
+    Post.find()
+        .populate("postedBy","_id name")
+        .populate("comments.postedBy","_id name")
+        .sort('-createdAt')
+        .then((posts)=>{
+            res.json({posts})
+        }).catch(err=>{
+        console.log(err)
     })
 
-    //req.user is the user object but is returning undefined because the request takes time, need middleware to fix, don't know how
-    console.log(req.user)
-    res.send("ok")
-
-    //create new post with Post schema
-    /*
-    const post = new Post({
-        caption: caption,
-        imageURL: imageURL,
-        postedBy: req.user
-    })
-    //save post
-    post.save().then(result =>{
-        res.json({post:result})
-        //res.send(result)
-    }).catch((err) => {
-        console.log(err);
-    });
-    */
 })
 
 
-//when the 'profile' button is clicked, the user's ObjectId (id from Mongodb) is put onto url path
-//check this, not sure about render syntax
-//not sure how to test this
-
+//Not finished, not exactly sure what this is doing but kept it for now
 router.get('posts/:id', (req,res) => {
     const id = req.params.id;
     Post.findById(id)
@@ -104,16 +102,8 @@ router.get('posts/:id', (req,res) => {
         })
 })
 
-//test to get a post with a hardcoded userObjectId of a post in mongodb
-router.get('/single-post', (req,res) => {
-    Post.findById('60272a128e7f923eb808ff8d')
-        .then((result) => {
-            res.send(result);
-        })
-        .catch((err) => {
-            console.log(err);
-        });
-})
+
+
 
 
 // Delete Endpoint
