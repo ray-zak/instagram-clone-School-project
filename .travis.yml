@@ -1,0 +1,12 @@
+language: node_js
+  node_js:
+    - "14"
+  script:
+    - echo "starting backend"
+    - cd backend
+    - npm install
+    - npm start
+    - echo "starting frontend"
+    - cd ../frontend
+    - npm install
+    - npm start

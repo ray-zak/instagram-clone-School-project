@@ -4,7 +4,7 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import Post from "../../DBmodels/post.js";
 import User from "../../DBmodels/Register_user_schema.js";
-//import auth from "../../helpers/auth.js"
+import "../auth.js";
 
 //require function is not working
 //const auth = require('../../helpers/auth.');
@@ -12,6 +12,7 @@ import User from "../../DBmodels/Register_user_schema.js";
 export const router = express.Router();
 
 //TODO: check auth before any actions
+
 //TODO: delete testing routes
 
 //TODO: POST PHOTO Provides route that takes (token, caption, image bytes) and
