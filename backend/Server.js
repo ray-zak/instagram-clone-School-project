@@ -3,6 +3,7 @@ import cors from "cors";
 import pusher from "pusher";
 import mongoose from "mongoose";
 import userRouter from "./api/routes/userRouter.js";
+import postRouter from "./api/routes/postRouter.js";
 import dotenv from "dotenv";
 
 // app Config
@@ -34,11 +35,12 @@ app.get("/" ,(req,res)=>{
 
 app.use("/users" , userRouter);
 
-
+app.use("/posts" , postRouter);
 
 // app listener
 app.listen(port, ()=>{
     console.log("server is running on port "+ port)
 })
+
 
 
