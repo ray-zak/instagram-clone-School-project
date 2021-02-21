@@ -1,10 +1,12 @@
 import express from "express";
 import cors from "cors";
-import pusher from "pusher";
+//import pusher from "pusher";
 import mongoose from "mongoose";
 import userRouter from "./api/routes/userRouter.js";
 import postRouter from "./api/routes/postRouter.js";
 import dotenv from "dotenv";
+
+
 
 // app Config
 const app = express();
@@ -17,15 +19,19 @@ app.use(express.json());
 app.use(cors());
 
 
+
 // DataBase Config
 
 //const  connection_url = 'mongodb+srv://soen341:soen341@cluster0.0nasy.mongodb.net/Soen341DB?retryWrites=true&w=majority';
 
-mongoose.connect(process.env.CONNECTION_URL, {useCreateIndex : true , useNewUrlParser: true , useUnifiedTopology: true});
-mongoose.connection.once('open', ()=>{
-    console.log("MongoDB connection established successfully");
-})
-
+mongoose.connect(process.env.CONNECTION_URL, {useNewUrlParser: true, useUnifiedTopology: true})
+    .then(() => {
+        console.log("CONNECTION OPEN")
+    })
+    .catch(err => {
+        console.log("ERROR")
+        console.log(err)
+    })
 // app routes
 app.get("/" ,(req,res)=>{
     console.log("server is running ");
@@ -34,6 +40,7 @@ app.get("/" ,(req,res)=>{
 });
 
 app.use("/users" , userRouter);
+app.use("/posts", postRouter);
 
 app.use("/posts" , postRouter);
 
