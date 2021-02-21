@@ -10,9 +10,13 @@ function Profile ({ token }) {
     const [post, setPost] = useState({ caption: '', imageURL: '' });
     const [posts, setPosts] = useState([]);
     const [showForm, setShowForm] = useState(false);
+
+    //const fetch_headers = new Headers({'authorization': sessionStorage.getItem('token')});
+    const fetch_headers = new Headers({'authorization': token});
+
     useEffect(() => {
         fetch('http://localhost:5000/posts/all-posts', {
-            method: 'get',
+            method: 'get', headers: fetch_headers
         }).then(response => response.json())
             .then(data => setPosts(data))
     }, [])
