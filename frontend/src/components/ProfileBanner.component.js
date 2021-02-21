@@ -1,9 +1,9 @@
 import React from 'react';
-const ProfileBanner = () => {
+const ProfileBanner = ({ addNewPost }) => {
     return (
         <div className='profile'>
             <div className='profile-image'>
-                <img src='https://images.unsplash.com/photo-1513721032312-6a18a42c8763?w=152&h=152&fit=crop&crop=faces' alt='User'/>
+                <img src='https://images.unsplash.com/photo-1513721032312-6a18a42c8763?w=152&h=152&fit=crop&crop=faces' alt='User' />
             </div>
             <div className="profile-user-settings">
                 <h1 className="profile-user-name">Imaginary_User</h1>
@@ -23,7 +23,7 @@ const ProfileBanner = () => {
             <div className='profile-operations'>
                 <ul>
                     <li><button className='btn profile-operations-btn'><i className='fa fa-user' aria-hidden></i></button></li>
-                    <li><button className='btn profile-operations-btn'><i className='fa fa-plus-circle' aria-hidden></i></button></li>
+                    <li><button onClick={addNewPost} className='btn profile-operations-btn'><i className='fa fa-plus-circle' aria-hidden></i></button></li>
                     <li><button className='btn profile-operations-btn'><i className='fa fa-history' aria-hidden></i></button></li>
                 </ul>
             </div>
