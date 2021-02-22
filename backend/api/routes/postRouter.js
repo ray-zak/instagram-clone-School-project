@@ -26,15 +26,9 @@ AWS.config.update({
 
 // init s3 instance
 const s3 = new AWS.S3();
-//TODO: check auth before any actions
+
+
 //TODO: delete testing routes
-
-//TODO: POST PHOTO Provides route that takes (token, caption, image bytes) and
-//  - uploads the photo to Amazon S3 and gets the link
-//  - creates the mongo database entry with (userID, caption, empty comments array, image URL)
-
-
-//TODO: GET PHOTO POST: Provides route to return post with photo, caption, comments, user ID of user that posted
 
 
 //TODO: limit photo upload size to 10MB
