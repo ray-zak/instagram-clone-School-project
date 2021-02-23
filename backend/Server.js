@@ -42,11 +42,12 @@ app.get("/" ,(req,res)=>{
 app.use("/users" , userRouter);
 app.use("/posts", postRouter);
 
-
+app.use("/posts" , postRouter);
 
 // app listener
 app.listen(port, ()=>{
     console.log("server is running on port "+ port)
 })
+
 
 

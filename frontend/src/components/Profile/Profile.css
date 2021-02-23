@@ -149,7 +149,7 @@ img{
 
 .gallery-item{
     position: relative;
-    flex: 1 0 22rem;
+    flex: 1 0 50rem;
     margin: 1rem;
     color: #fff;
     cursor: pointer;
