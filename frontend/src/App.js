@@ -39,6 +39,8 @@ function App () {
         <Route path="/profile" exact  >
           <Profile token={token} />
         </Route>
+          <Route path={"/logout"} exact component={Login} setToken={""} />
+
       </div>
     </Router>
   );
