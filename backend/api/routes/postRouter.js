@@ -73,7 +73,7 @@ router.post('/upload-image', async (req, res) => {
 
 
 router.get('/all-posts', authMiddleware, async (req, res) => {
-    Post.find().sort({ createdAt: -1 })
+    Post.find({postedBy: req.user}).sort({ createdAt: -1 })
         .then((result) => {
             res.send(result);
         })
@@ -85,7 +85,7 @@ router.get('/all-posts', authMiddleware, async (req, res) => {
 router.post('/add-post', authMiddleware, async (req, res) => {
     try {
         const { caption, imageURL } = req.body;
-
+        /**
         //need to make this middleware, express session, passport?
         const { authorization } = req.headers
         if (!authorization) {
@@ -104,7 +104,7 @@ router.post('/add-post', authMiddleware, async (req, res) => {
                 console.log(_id);
             })
         })
-
+        **/
         //req.user is the user object but is returning undefined because the request takes time, need middleware to fix, don't know how
         console.log(req.user)
 
@@ -120,6 +120,9 @@ router.post('/add-post', authMiddleware, async (req, res) => {
         console.log(post)
         //save post
         await post.save()
+        //adding the post id to the user's posts array
+        await req.user.postsID.push(post._id)
+        await req.user.save();
         res.json({ post })
 
     }
