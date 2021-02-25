@@ -4,6 +4,7 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
 
+
 export const router = express.Router();
 
 router.get("/",(req, res)=>{
@@ -127,11 +128,7 @@ router.post("/login" , async(req,res)=>{
 })
 
 
-// Delete Endpoint
 
-router.delete("/delete" , (res,req)=>{
-
-})
 
 export default router;
 
