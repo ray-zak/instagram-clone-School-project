@@ -8,6 +8,7 @@ import HomepageComponent from "./components/homepage.component";
 import Profile from "./components/Profile/Profile.component";
 import Login from "./components/Login/login.component";
 import useToken from './useToken';
+import OtherProfileComponent from "./components/Profile/OtherProfile.component";
 import Gallery from './components/Gallery.component';
 
 
@@ -32,15 +33,18 @@ function App () {
 
   return (
     <Router>
-      <Navbar />
+        {token ?
+      <Navbar token={token}/> : <Navbar/> }
       <div className="container">
         <br />
         <Route path="/" exact component={HomepageComponent} />
         <Route path="/profile" exact  >
-          <Profile token={token} />
+          <Profile token={token}/>
         </Route>
+         <Route path="/otherprofile/:id" exact>
+              <OtherProfileComponent token={token} setToken={setToken}/>
+          </Route>
           <Route path={"/logout"} exact component={Login} setToken={""} />
-
       </div>
     </Router>
   );
