@@ -1,7 +1,6 @@
-import React, { Component, useState  } from 'react';
+import React, { Component, useState } from 'react';
 import {Tab, Tabs} from 'react-bootstrap';
 import PropTypes from 'prop-types';
-
 
 
 import './Login.css';
@@ -34,9 +33,6 @@ async function registerUser(userInfo){
 
 export default function Login({ setToken }) {
 
-
-
-
     if(setToken==null || window.location.href==="http://localhost:3000/logout"){
 
         sessionStorage.clear();
@@ -44,7 +40,6 @@ export default function Login({ setToken }) {
         window.location.replace("/") ;
 
     }
-
 
     const [email, setEmail] = useState();
     const [username, setUserName] = useState();

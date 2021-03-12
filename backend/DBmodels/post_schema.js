@@ -8,8 +8,8 @@ const postSchema = new Schema({
     caption: {type: String},
     imageURL : {type: String},
     postedBy: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
-    comments: [ { comment_ID: String, create_date: Date, by: mongoose.Schema.Types.ObjectId } ]
-
+    //comments: [ { comment_ID: String, create_date: Date, by: mongoose.Schema.Types.ObjectId } ]
+    comments:[],
 },{timestamps: true});
 
 
