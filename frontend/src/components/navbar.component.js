@@ -1,6 +1,7 @@
 import React, { useEffect , Component } from 'react';
 import { Link } from 'react-router-dom';
 import useToken from '../useToken.js';
+import SearchBarComponent from "./SearchBar.Component";
 
 
 const Navbar = ()=>{
@@ -23,6 +24,9 @@ const Navbar = ()=>{
                         <li className={"navbar-item"}>
                             <Link to={"/logout"} className={"nav-link"}> Log out </Link>
                         </li>
+                        <li>
+                            <SearchBarComponent token={token}/>
+                        </li>
                     </ul>):""
                 }
             </div>
@@ -31,5 +35,3 @@ const Navbar = ()=>{
     )
 }
 export default Navbar;
-
-

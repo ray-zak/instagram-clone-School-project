@@ -11,6 +11,7 @@ import multiparty from 'multiparty';
 import fs from 'fs';
 import dotenv from "dotenv";
 import authMiddleware from "../../api/authMiddleware.js";
+import Comment from "../../DBmodels/Comment_Schema.js";
 
 
 
@@ -85,26 +86,7 @@ router.get('/all-posts', authMiddleware, async (req, res) => {
 router.post('/add-post', authMiddleware, async (req, res) => {
     try {
         const { caption, imageURL } = req.body;
-        /**
-        //need to make this middleware, express session, passport?
-        const { authorization } = req.headers
-        if (!authorization) {
-            return res.status(401).json({ error: "you must be logged in" })
-        }
-        const token = authorization.replace("Bearer ", "")
-        jwt.verify(token, process.env.JWT_SECRET, (err, payload) => {
-            if (err) {
-                return res.status(401).json({ error: "you must be logged in" })
-            }
-            const { _id } = payload
-            User.findById(_id).then(userdata => {
-                req.user = userdata
-                //const name = userdata.username;
-                //const id = userdata._id;
-                console.log(_id);
-            })
-        })
-        **/
+
         //req.user is the user object but is returning undefined because the request takes time, need middleware to fix, don't know how
         console.log(req.user)
 
@@ -134,51 +116,91 @@ router.post('/add-post', authMiddleware, async (req, res) => {
 })
 
 //gets all posts by all users sorted by most recent. Not really tested yet
-router.get('/all-posts', authMiddleware ,(req,res) => {
-
-    console.log('hello');
-
-
-    Post.find()
-        .populate("postedBy","_id name")
-        .populate("comments.postedBy","_id name")
-        .sort('-createdAt')
-        .then((posts)=>{
-            res.json({posts})
-        }).catch(err=>{
-        console.log(err)
-    })
-
-})
+// router.get('/all-posts', authMiddleware ,(req,res) => {
+//
+//     console.log('hello');
+//
+//
+//     Post.find()
+//         .populate("postedBy","_id name")
+//         .populate("comments.postedBy","_id name")
+//         .sort('-createdAt')
+//         .then((posts)=>{
+//             res.json({posts})
+//         }).catch(err=>{
+//         console.log(err)
+//     })
+//
+// })
 
 //get all posts made by a user (the user who is logged in)
-router.get('/my-post',authMiddleware,(req,res)=>{
+// router.get('/my-post',authMiddleware,(req,res)=>{
+//
+//     Post.find({postedBy:req.user._id})
+//         .populate("PostedBy","_id name")
+//         .then(my_post=>{
+//             res.json({my_post})
+//             console.log(my_post)
+//         })
+//         .catch(err=>{
+//             console.log(err)
+//         })
+// })
 
-    Post.find({postedBy:req.user._id})
-        .populate("PostedBy","_id name")
-        .then(my_post=>{
-            res.json({my_post})
-            console.log(my_post)
+
+//getting otheruser's post
+router.get("/otheruser_posts/:UserID", authMiddleware, async (req,res) => {
+    User.findById(req.params.UserID)
+        .then(user=>{
+
+            Post.find({postedBy: user})
+                .then(result=>{
+                    res.send(result)
+                })
+                .catch(err=>{
+                    res.status(400).json(err.message);
+                })
         })
         .catch(err=>{
-            console.log(err)
+            res.status(400).json(err.message);
         })
+
 })
 
+router.post("/add-comment" , authMiddleware , async(req,res)=>{
+    try{
+        const content = req.body.content;
+        console.log(content)
+        const postedBy = req.user.username;
+        const postId = req.body.postId;
+        console.log(postId);
 
-//Not finished, not exactly sure what this is doing but kept it for now
-router.get('posts/:id', authMiddleware, async (req,res) => {
-    const id = req.params.id;
-    Post.findById(id)
-        .then(result => {
-            //res.render('theView', { post: result});
-            console.log(result);
+        const newcomment = new Comment({
+            content: content,
+            postedBy: postedBy,
+            postID: postId
         })
-        .catch(err => {
-            console.log(err);
-        })
+        await newcomment.save()
+        await Post.findById(postId).updateOne({$push:{comments: newcomment}})
+        res.json({newcomment: newcomment});
+
+    }
+    catch (err){
+        res.status(500).json(err.message);
+    }
+
+
 })
 
+router.get("/getcomment", authMiddleware, async (req, res)=>{
+    await Comment.find().sort({createdAt: -1})
+        .then(result=>{
+            res.send(result)
+        })
+        .catch(err=>{
+            res.json(err.message);
+        })
+})
 
 
 
