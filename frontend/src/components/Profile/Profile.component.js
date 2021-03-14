@@ -70,9 +70,9 @@ function Profile ({ token }) {
         setUploading(true);
 
         // aption or imageURL cant be null
-        if (post.caption === '' || post.imageURL === '') {
+        if (post.imageURL === '') {
             // alert message
-            alert('caption or imageURL cant be null ');
+            alert('imageURL cant be null ');
             return
         }
         // upload post to server
