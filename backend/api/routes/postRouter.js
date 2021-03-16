@@ -1,42 +1,80 @@
 import express from "express";
-import Image from "../../DBmodels/image_upload_schema.js";
+// import Image from "../../DBmodels/image_upload_schema.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import Post from "../../DBmodels/post.js";
+import Post from "../../DBmodels/post_schema.js";
 import User from "../../DBmodels/Register_user_schema.js";
-import "../auth.js";
+//import auth from "../../helpers/auth.js"
+import AWS from 'aws-sdk';
+import FileType from 'file-type';
+import multiparty from 'multiparty';
+import fs from 'fs';
+import dotenv from "dotenv";
+import authMiddleware from "../../api/authMiddleware.js";
+import Comment from "../../DBmodels/Comment_Schema.js";
 
-//require function is not working
-//const auth = require('../../helpers/auth.');
 
+
+dotenv.config();
 export const router = express.Router();
 
-//TODO: check auth before any actions
+// init AWS instance
+AWS.config.update({
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+    region: 'ca-central-1' // us-east-1 for me
+});
+
+// init s3 instance
+const s3 = new AWS.S3();
+
 
 //TODO: delete testing routes
-
-//TODO: POST PHOTO Provides route that takes (token, caption, image bytes) and
-//  - uploads the photo to Amazon S3 and gets the link
-//  - creates the mongo database entry with (userID, caption, empty comments array, image URL)
-
-
-//TODO: GET PHOTO POST: Provides route to return post with photo, caption, comments, user ID of user that posted
 
 
 //TODO: limit photo upload size to 10MB
 
-router.get("/",(req, res)=>{
+router.get("/", (req, res) => {
 
-    res.send(" hello profile!");
+    res.send(" hello post router!");
 })
 
-//not working because auth is not working, need syntax help
-//router.get('/create-post', auth, (req,res) =>{
 
-//})
 
-router.get('/all-posts', (req,res) => {
-    Post.find().sort({createdAt: -1})
+router.post('/upload-image', async (req, res) => {
+
+    const form = new multiparty.Form();
+    // parse form data
+    form.parse(req, async (error, fields, files) => {
+        if (error) {
+            return res.status(500).send(error);
+        };
+        try {
+            // get params data
+            const path = files.file[0].path;
+            const buffer = fs.readFileSync(path);
+            const type = await FileType.fromBuffer(buffer);
+            const fileName = `image/${files.file[0].originalFilename}`;
+            const params = {
+                ACL: 'public-read',
+                Body: buffer,
+                Bucket: process.env.S3_BUCKET,
+                ContentType: type.mime,
+                Key: fileName,
+            };
+            // upload image to s3
+            const data = await s3.upload(params).promise()
+            return res.status(200).send(data);
+        } catch (err) {
+            return res.status(500).send(err);
+        }
+    });
+})
+
+
+
+router.get('/all-posts', authMiddleware, async (req, res) => {
+    Post.find({postedBy: req.user}).sort({ createdAt: -1 })
         .then((result) => {
             res.send(result);
         })
@@ -45,85 +83,137 @@ router.get('/all-posts', (req,res) => {
         });
 })
 
-router.post('/add-post', (req,res) => {
-    const {caption,imageURL} = req.body;
+router.post('/add-post', authMiddleware, async (req, res) => {
+    try {
+        const { caption, imageURL } = req.body;
 
-    //need to make this middleware, express session, passport?
-    const {authorization} = req.headers
-    if(!authorization){
-        return res.status(401).json({error: "you must be logged in"})
-    }
-    const token = authorization.replace("Bearer ", "")
-    jwt.verify(token, process.env.JWT_SECRET,(err,payload) => {
-        if(err){
-            return res.status(401).json({error: "you must be logged in"})
-        }
-        const {_id} = payload
-        User.findById(_id).then(userdata => {
-            req.user = userdata
-            //const name = userdata.username;
-            //const id = userdata._id;
-            console.log(_id);
-        })
-    })
+        //req.user is the user object but is returning undefined because the request takes time, need middleware to fix, don't know how
+        console.log(req.user)
 
-    //req.user is the user object but is returning undefined because the request takes time, need middleware to fix, don't know how
-    console.log(req.user)
-    res.send("ok")
 
     //create new post with Post schema
-    /*
-    const post = new Post({
-        caption: caption,
-        imageURL: imageURL,
-        postedBy: req.user
-    })
-    //save post
-    post.save().then(result =>{
-        res.json({post:result})
-        //res.send(result)
-    }).catch((err) => {
-        console.log(err);
-    });
-    */
+
+        const post = new Post({
+            caption: caption,
+            imageURL: imageURL,
+            postedBy: req.user,
+            comments: [],
+        })
+        console.log(post)
+        //save post
+        await post.save()
+        //adding the post id to the user's posts array
+        await req.user.postsID.push(post._id)
+        await req.user.save();
+        res.json({ post })
+
+    }
+    catch(err) {
+        res.status(500).json({Error: err.message});
+        //console.log(err);
+    }
+
+})
+
+//gets all posts by all users sorted by most recent. Not really tested yet
+// router.get('/all-posts', authMiddleware ,(req,res) => {
+//
+//     console.log('hello');
+//
+//
+//     Post.find()
+//         .populate("postedBy","_id name")
+//         .populate("comments.postedBy","_id name")
+//         .sort('-createdAt')
+//         .then((posts)=>{
+//             res.json({posts})
+//         }).catch(err=>{
+//         console.log(err)
+//     })
+//
+// })
+
+//get all posts made by a user (the user who is logged in)
+// router.get('/my-post',authMiddleware,(req,res)=>{
+//
+//     Post.find({postedBy:req.user._id})
+//         .populate("PostedBy","_id name")
+//         .then(my_post=>{
+//             res.json({my_post})
+//             console.log(my_post)
+//         })
+//         .catch(err=>{
+//             console.log(err)
+//         })
+// })
+
+
+//getting otheruser's post
+router.get("/otheruser_posts/:UserID", authMiddleware, async (req,res) => {
+    User.findById(req.params.UserID)
+        .then(user=>{
+
+            Post.find({postedBy: user})
+                .then(result=>{
+                    res.send(result)
+                })
+                .catch(err=>{
+                    res.status(400).json(err.message);
+                })
+        })
+        .catch(err=>{
+            res.status(400).json(err.message);
+        })
+
+})
+
+router.post("/add-comment" , authMiddleware , async(req,res)=>{
+    try{
+        const content = req.body.content;
+        console.log(content)
+        const postedBy = req.user.username;
+        const postId = req.body.postId;
+        console.log(postId);
+
+        const newcomment = new Comment({
+            content: content,
+            postedBy: postedBy,
+            postID: postId
+        })
+        await newcomment.save()
+        await Post.findById(postId).updateOne({$push:{comments: newcomment}})
+        res.json({newcomment: newcomment});
+
+    }
+    catch (err){
+        res.status(500).json(err.message);
+    }
+
+
+})
+
+router.get("/getcomment", authMiddleware, async (req, res)=>{
+    await Comment.find().sort({createdAt: -1})
+        .then(result=>{
+            res.send(result)
+        })
+        .catch(err=>{
+            res.json(err.message);
+        })
 })
 
 
-//when the 'profile' button is clicked, the user's ObjectId (id from Mongodb) is put onto url path
-//check this, not sure about render syntax
-//not sure how to test this
-
-router.get('posts/:id', (req,res) => {
-    const id = req.params.id;
-    Post.findById(id)
-        .then(result => {
-            //res.render('theView', { post: result});
-            console.log(result);
-        })
-        .catch(err => {
-            console.log(err);
-        })
-})
-
-//test to get a post with a hardcoded userObjectId of a post in mongodb
-router.get('/single-post', (req,res) => {
-    Post.findById('60272a128e7f923eb808ff8d')
-        .then((result) => {
-            res.send(result);
-        })
-        .catch((err) => {
-            console.log(err);
-        });
-})
 
 
 // Delete Endpoint
 
-router.delete("/delete" , (res,req)=>{
+router.delete("/delete", (res, req) => {
 
 })
 
 
 
 export default router;
+
+
 
