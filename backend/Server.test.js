@@ -14,8 +14,11 @@ const request=supertest(app);
 const test_user = "test";
 const test_pw = "testtest";
 
-let token;
+//the ID of another user to follow
+let other_user_id = "602c0f6b0d5200d137290689";
 
+let token;
+let user_id;
 
 describe('Get token', () => {
     it('Get token', async done => {
@@ -98,8 +101,10 @@ describe('Test Post', () => {
             .expect(200)
             .then(response => {
                 console.log("make post: ", response.body)
-                post_id = response.body.post._id
+                post_id = response.body.post._id //get the post ID so that we can add a comment
+                user_id = response.body.post.postedBy._id //get our user ID, which is returned in the post response
                 console.log("post id ", post_id)
+                console.log("user ID", user_id)
             })
             .catch(err => {
                 console.log(err)
@@ -127,14 +132,33 @@ describe('Test Post', () => {
 })
 
 describe('Test Follow/Unfollow', () => {
+
     it('test Unfollow test2', async done => {
         //const response = await request.get('/');
-
-        //expect(response.status).toBe(200)
+        const res = await request.post('/users/unfollow/'+user_id+'/'+other_user_id)
+            .expect(200)
+            .then(response => {
+                console.log("unfollow user: ", response.body)
+            })
+            .catch(err => {
+                console.log(err)
+                done(err)
+            })
 
         done();
     })
+
     it('test Follow test2', async done => {
+        //const response = await request.get('/');
+        const res = await request.post('/users/follow/'+user_id+'/'+other_user_id)
+            .expect(200)
+            .then(response => {
+                console.log("follow user: ", response.body)
+            })
+            .catch(err => {
+                console.log(err)
+                done(err)
+            })
 
         done();
     })
