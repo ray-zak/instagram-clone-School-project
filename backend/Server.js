@@ -24,6 +24,7 @@ app.use(cors());
 
 //const  connection_url = 'mongodb+srv://soen341:soen341@cluster0.0nasy.mongodb.net/Soen341DB?retryWrites=true&w=majority';
 
+
 mongoose.connect(process.env.CONNECTION_URL, {useNewUrlParser: true, useUnifiedTopology: true})
     .then(() => {
         console.log("CONNECTION OPEN")

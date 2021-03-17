@@ -133,17 +133,17 @@ describe('Test Post', () => {
 
 describe('Test Follow/Unfollow', () => {
 
-    it('test Unfollow/Follow test2', async done => {
+    it('test Follow', async done => {
         //const response = await request.get('/');
-        const res = await request.post('/users/unfollow/'+user_id+'/'+other_user_id)
-            .expect(200)
-            .then(response => {
-                console.log("unfollow user: ", response.body)
-            })
-            .catch(err => {
-                console.log(err)
-                done(err)
-            })
+        // const res = await request.post('/users/unfollow/'+user_id+'/'+other_user_id)
+        //     .expect(200)
+        //     .then(response => {
+        //         console.log("unfollow user: ", response.body)
+        //     })
+        //     .catch(err => {
+        //         console.log(err)
+        //         done(err)
+        //     })
 
         const res2 = await request.post('/users/follow/'+user_id+'/'+other_user_id)
             .expect(200)
