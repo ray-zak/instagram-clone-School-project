@@ -1,0 +1,18 @@
+.comments {
+
+    background-color: #fdf2f2;
+    opacity: 0.8;
+    position: absolute;
+    padding: 15px;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);    /* Older Gecko browser */
+    -ms-transform: translate(-50%, -50%);     /* IE9+ */
+    -o-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    border-radius: 25px;
+
+}
+
+

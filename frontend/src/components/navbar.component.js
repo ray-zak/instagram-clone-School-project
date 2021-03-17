@@ -1,11 +1,11 @@
-import React, { useEffect , Component } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import useToken from '../useToken.js';
 import SearchBarComponent from "./SearchBar.Component";
 
 
 const Navbar = ()=>{
-    const { token, setToken } = useToken();
+    const { token } = useToken();
 
 
 

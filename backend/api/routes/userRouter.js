@@ -30,13 +30,9 @@ router.post("/register" , async (req , res)=>{
         const username = req.body.username;
 
         // Followers and posts should be initially blank, not provided by API
-        // const followers = req.body.followers
-        // const postsID = req.body.postsID;
         const followers = [];
         const postsID = [];
 
-
-        //console.log(email , password, username , followers , postsID);
 
         // validation
 
@@ -55,7 +51,7 @@ router.post("/register" , async (req , res)=>{
         }
         // hashing the password
         const salt  = await bcrypt.genSalt(8);                          // creating the salt for hashing
-        const password_hash = await  bcrypt.hash(password,salt);        // hash the pasword
+        const password_hash = await  bcrypt.hash(password,salt);        // hash the password
         console.log(password_hash);
 
 
@@ -112,11 +108,10 @@ router.post("/login" , async(req,res)=>{
             return res.status(400).json({msg: "Invalid Password"});
         }
 
-        //console.log("before jwt line");
+
         // JWT token :  gives every logged in user a unique token that will be helpful for us to identify the user and use it if it is logged in or not
         const token = jwt.sign({id: finding_user._id} , process.env.JWT_SECRET);
 
-        //console.log("after jwt line");
 
         res.json({
             token,

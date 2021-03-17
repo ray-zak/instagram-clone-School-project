@@ -16,7 +16,7 @@ const PostForm = ({ onDrop, onSubmit, onChange, uploading }) => {
                     imgExtension={[".jpg", ".gif", ".png",]}
                     maxFileSize={10485760}
                 />
-                <button style={{padding:'5px 10px', width:'100%', border:'none', borderRadius:'5px', backgroundColor:'#343a40', color:'white'}} disabled={uploading} type="submit">Sumbit</button>
+                <button style={{padding:'5px 10px', width:'100%', border:'none', borderRadius:'5px', backgroundColor:'#343a40', color:'white'}} disabled={uploading} type="submit">Submit</button>
             </form>
         </div>
     );

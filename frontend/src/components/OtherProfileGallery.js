@@ -1,11 +1,11 @@
 import React, {useState} from "react";
-import Displaying_Comments from "./Displaying_Comments";
+import Displaying_Comments from "./Comments/Displaying_Comments";
 
 const OtherProfileGallery  = ({posts}) =>{
 
     const [content, Setcontent] = useState("");
     const [postId, SetpostId] = useState("");
-    const [comments, Setcomments] = useState([]);
+
 
 
     const add_comment = async (e) => {
@@ -54,8 +54,7 @@ const OtherProfileGallery  = ({posts}) =>{
                             color: 'white'
                         }} type={"submit"} value={"send comment"}/>
                     </form>
-                    {/*<input type="text" placeholder={"comments here"} style={{padding:'5px 10px', width:'90%'}}/>*/}
-                    {/*<button style={{padding:'5px 10px', width:'10%', border:'none', borderRadius:'5px', backgroundColor:'#343a40', color:'white'}}>submit</button>*/}
+
                     <div className='gallery-item-info'>
 
                         {

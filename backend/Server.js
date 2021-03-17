@@ -1,6 +1,5 @@
 import express from "express";
 import cors from "cors";
-//import pusher from "pusher";
 import mongoose from "mongoose";
 import userRouter from "./api/routes/userRouter.js";
 import postRouter from "./api/routes/postRouter.js";
@@ -21,9 +20,6 @@ app.use(cors());
 
 
 // DataBase Config
-
-//const  connection_url = 'mongodb+srv://soen341:soen341@cluster0.0nasy.mongodb.net/Soen341DB?retryWrites=true&w=majority';
-
 mongoose.connect(process.env.CONNECTION_URL, {useNewUrlParser: true, useUnifiedTopology: true})
     .then(() => {
         console.log("CONNECTION OPEN")
