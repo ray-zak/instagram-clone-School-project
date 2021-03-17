@@ -133,7 +133,7 @@ describe('Test Post', () => {
 
 describe('Test Follow/Unfollow', () => {
 
-    it('test Unfollow test2', async done => {
+    it('test Unfollow/Follow test2', async done => {
         //const response = await request.get('/');
         const res = await request.post('/users/unfollow/'+user_id+'/'+other_user_id)
             .expect(200)
@@ -145,12 +145,7 @@ describe('Test Follow/Unfollow', () => {
                 done(err)
             })
 
-        done();
-    })
-
-    it('test Follow test2', async done => {
-        //const response = await request.get('/');
-        const res = await request.post('/users/follow/'+user_id+'/'+other_user_id)
+        const res2 = await request.post('/users/follow/'+user_id+'/'+other_user_id)
             .expect(200)
             .then(response => {
                 console.log("follow user: ", response.body)
@@ -158,10 +153,25 @@ describe('Test Follow/Unfollow', () => {
             .catch(err => {
                 console.log(err)
                 done(err)
-            })
+        })
 
         done();
     })
+
+    // it('test Follow test2', async done => {
+    //     //const response = await request.get('/');
+    //     const res = await request.post('/users/follow/'+user_id+'/'+other_user_id)
+    //         .expect(200)
+    //         .then(response => {
+    //             console.log("follow user: ", response.body)
+    //         })
+    //         .catch(err => {
+    //             console.log(err)
+    //             done(err)
+    //         })
+    //
+    //     done();
+    // })
 })
 
 /*

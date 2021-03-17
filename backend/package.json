@@ -22,7 +22,7 @@
   },
   "scripts": {
     "start": "node start.js",
-    "test": "jest --detectOpenHandles"
+    "test": "jest --detectOpenHandles --runInBand"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.13.10",
