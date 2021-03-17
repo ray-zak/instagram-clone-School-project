@@ -95,10 +95,11 @@ router.post("/login" , async(req,res)=>{
         if(!username || !password){
             return res.status(400).json({msg: "Username or password is empty "});
         }
+        console.log("after validation");
 
         // looking for the existing user in DB
         const finding_user = await User.findOne({username: username}) ;
-        console.log(finding_user);
+        console.log("Finding user: ", finding_user);
 
         if(!finding_user){
             return res.status(400).json({msg: "No user matches this username "});
@@ -112,11 +113,11 @@ router.post("/login" , async(req,res)=>{
             return res.status(400).json({msg: "Invalid Password"});
         }
 
-        //console.log("before jwt line");
+        console.log("before jwt line");
         // JWT token :  gives every logged in user a unique token that will be helpful for us to identify the user and use it if it is logged in or not
         const token = jwt.sign({id: finding_user._id} , process.env.JWT_SECRET);
 
-        //console.log("after jwt line");
+        console.log("after jwt line");
 
         res.json({
             token,

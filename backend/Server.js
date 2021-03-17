@@ -45,9 +45,9 @@ app.use("/posts", postRouter);
 app.use("/posts" , postRouter);
 
 // app listener
-app.listen(port, ()=>{
-    console.log("server is running on port "+ port)
-})
-
+//app.listen(port, ()=>{
+//    console.log("server is running on port "+ port)
+//})
+export default app
 
 
