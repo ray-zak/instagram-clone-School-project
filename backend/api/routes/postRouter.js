@@ -42,19 +42,23 @@ router.get("/", (req, res) => {
 
 
 router.post('/upload-image', async (req, res) => {
-
+    //console.log("upload image called")
     const form = new multiparty.Form();
     // parse form data
     form.parse(req, async (error, fields, files) => {
         if (error) {
+            //console.log("Parse error, Form: ", form)
             return res.status(500).send(error);
         };
         try {
             // get params data
+            //console.log("in try block", files)
             const path = files.file[0].path;
+            //console.log("in try block 2")
             const buffer = fs.readFileSync(path);
             const type = await FileType.fromBuffer(buffer);
             const fileName = `image/${files.file[0].originalFilename}`;
+            //console.log("upload image with fileName ", fileName);
             const params = {
                 ACL: 'public-read',
                 Body: buffer,
@@ -63,9 +67,12 @@ router.post('/upload-image', async (req, res) => {
                 Key: fileName,
             };
             // upload image to s3
+            //console.log("just before s3 upload")
             const data = await s3.upload(params).promise()
             return res.status(200).send(data);
         } catch (err) {
+            //console.log("Try error, Form: ", form)
+            console.log("Try post error ", err)
             return res.status(500).send(err);
         }
     });
@@ -88,7 +95,7 @@ router.post('/add-post', authMiddleware, async (req, res) => {
         const { caption, imageURL } = req.body;
 
         //req.user is the user object but is returning undefined because the request takes time, need middleware to fix, don't know how
-        console.log(req.user)
+        //console.log(req.user)
 
 
     //create new post with Post schema
@@ -99,7 +106,7 @@ router.post('/add-post', authMiddleware, async (req, res) => {
             postedBy: req.user,
             comments: [],
         })
-        console.log(post)
+        //console.log(post)
         //save post
         await post.save()
         //adding the post id to the user's posts array
