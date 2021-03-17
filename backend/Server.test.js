@@ -136,6 +136,7 @@ describe('Test Follow/Unfollow', () => {
     })
     it('test Follow test2', async done => {
 
+        done();
     })
 })
 
