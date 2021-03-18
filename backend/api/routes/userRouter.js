@@ -95,10 +95,11 @@ router.post("/login" , async(req,res)=>{
         if(!username || !password){
             return res.status(400).json({msg: "Username or password is empty "});
         }
+        //console.log("after validation");
 
         // looking for the existing user in DB
         const finding_user = await User.findOne({username: username}) ;
-        console.log(finding_user);
+        //console.log("Finding user: ", finding_user);
 
         if(!finding_user){
             return res.status(400).json({msg: "No user matches this username "});
@@ -146,6 +147,8 @@ router.route('/follow/:userId/:targetId').post((req, res) => {
                 .then(() => res.json('User followed'))
                 .catch(err => res.status(400).json('Error: ' + err));
         })
+        .catch(err => {console.log("Error: ", err.message)})
+
     User.findById(req.params.targetId)
         .then(targetUser =>{
             targetUser.followers.push(req.params.userId);
@@ -153,6 +156,7 @@ router.route('/follow/:userId/:targetId').post((req, res) => {
                 .then(() => res.json('Added to followers'))
                 .catch(err => res.status(400).json('Error: ' + err));
         })
+        .catch(err => {console.log("Error: ", err.message)})
 })
 
 router.route('/unfollow/:userId/:targetId').post((req, res) =>{
@@ -164,6 +168,8 @@ router.route('/unfollow/:userId/:targetId').post((req, res) =>{
                 .then(() => res.json('User unfollowed'))
                 .catch(err => res.status(400).json('Error: ' + err));
         })
+        .catch(err => {console.log("Error: ", err.message)})
+
     User.findById(req.params.targetId)
         .then(targetUser =>{
             const indexToRemoveFromFollowers = targetUser.followers.indexOf(req.params.userId);
@@ -172,18 +178,19 @@ router.route('/unfollow/:userId/:targetId').post((req, res) =>{
                 .then(() => res.json('User removed from followed'))
                 .catch(err => res.status(400).json('Error ' + err));
         })
+        .catch(err => {console.log("Error: ", err.message)})
 })
 
-router.route('/removeFollower/:userId/:targetId').post((req, res) => {
-    User.findById(req.params.targetId)
-        .then(targetUser =>{
-            const indexToRemoveFromFollowers = targetUser.followers.indexOf(req.params.userId);
-            targetUser.followers.splice(indexToRemoveFromFollowers,1);
-            targetUser.save()
-                .then(() => res.json('User removed from followed'))
-                .catch(err => res.status(400).json('Error ' + err));
-        })
-})
+// router.route('/removeFollower/:userId/:targetId').post((req, res) => {
+//     User.findById(req.params.targetId)
+//         .then(targetUser =>{
+//             const indexToRemoveFromFollowers = targetUser.followers.indexOf(req.params.userId);
+//             targetUser.followers.splice(indexToRemoveFromFollowers,1);
+//             targetUser.save()
+//                 .then(() => res.json('User removed from followed'))
+//                 .catch(err => res.status(400).json('Error ' + err));
+//         })
+// })
 
 
 

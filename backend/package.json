@@ -4,19 +4,30 @@
   "version": "0.1.0",
   "dependencies": {
     "aws-sdk": "^2.844.0",
+    "babel-jest": "^26.6.3",
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "file-type": "^16.2.0",
+    "form-data": "^4.0.0",
     "jsonwebtoken": "^8.5.1",
+    "md5": "^2.3.0",
     "mongoose": "^5.11.15",
     "multiparty": "^4.2.2",
     "nodemon": "^2.0.7",
     "pusher": "^4.0.2",
+    "ts-jest": "^26.5.3",
     "web-vitals": "^1.1.0"
   },
   "scripts": {
-    "start": "node Server.js"
+    "start": "node start.js",
+    "test": "jest --detectOpenHandles --runInBand"
+  },
+  "devDependencies": {
+    "@babel/preset-env": "^7.13.10",
+    "jest": "^26.6.3",
+    "mocha": "^8.3.0",
+    "supertest": "^6.1.3"
   }
 }

@@ -44,8 +44,9 @@
       "last 1 safari version"
     ]
   },
-  "type": "module",
   "devDependencies": {
+    "mocha": "^8.3.0",
     "axios": "^0.21.1"
-  }
+  },
+  "type": "module"
 }
