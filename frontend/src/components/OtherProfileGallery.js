@@ -21,7 +21,6 @@ const OtherProfileGallery  = ({posts}) =>{
             body: JSON.stringify({
                 content: content,
                 postId: postId,
-
             })
 
         }).then(res => {

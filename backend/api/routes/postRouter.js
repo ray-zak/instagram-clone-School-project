@@ -62,6 +62,7 @@ router.post('/upload-image', async (req, res) => {
             const data = await s3.upload(params).promise()
             return res.status(200).send(data);
         } catch (err) {
+            console.log("Try post error ", err)
             return res.status(500).send(err);
         }
     });
@@ -83,7 +84,8 @@ router.post('/add-post', authMiddleware, async (req, res) => {
     try {
         const { caption, imageURL } = req.body;
 
-        console.log(req.user)
+        //req.user is the user object but is returning undefined because the request takes time, need middleware to fix, don't know how
+        //console.log(req.user)
 
 
     //create new post with Post schema
@@ -94,7 +96,7 @@ router.post('/add-post', authMiddleware, async (req, res) => {
             postedBy: req.user,
             comments: [],
         })
-        console.log(post)
+        //console.log(post)
         //save post
         await post.save()
         //adding the post id to the user's posts array
