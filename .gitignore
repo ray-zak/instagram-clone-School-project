@@ -2,6 +2,5 @@
 /.eslintcache
 /backend/node_modules/
 /frontend/node_modules/
-/backend/.env
 /backend/package-lock.json
 /frontend/package-lock.json
