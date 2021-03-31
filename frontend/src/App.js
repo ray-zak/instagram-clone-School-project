@@ -9,7 +9,7 @@ import Profile from "./components/Profile/Profile.component";
 import Login from "./components/Login/login.component";
 import useToken from './useToken';
 import OtherProfileComponent from "./components/Profile/OtherProfile.component";
-import Gallery from './components/Gallery.component';
+
 
 
 function App () {

@@ -1,12 +1,11 @@
 import mongoose from "mongoose";
 
 const Schema = mongoose.Schema;
-const {ObjectId} = mongoose.Schema.Types
 
 const comment_schema = new Schema({
 
     content: {type:String},
-    postedBy: {type:String},//type: mongoose.Schema.Types.ObjectId, ref:"User"},
+    postedBy: {type:String},
     postID: { type: mongoose.Schema.Types.ObjectId, ref: "Post"}
 })
 

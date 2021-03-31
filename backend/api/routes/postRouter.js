@@ -1,10 +1,6 @@
 import express from "express";
-// import Image from "../../DBmodels/image_upload_schema.js";
-import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
 import Post from "../../DBmodels/post_schema.js";
 import User from "../../DBmodels/Register_user_schema.js";
-//import auth from "../../helpers/auth.js"
 import AWS from 'aws-sdk';
 import FileType from 'file-type';
 import multiparty from 'multiparty';
@@ -42,23 +38,19 @@ router.get("/", (req, res) => {
 
 
 router.post('/upload-image', async (req, res) => {
-    //console.log("upload image called")
+
     const form = new multiparty.Form();
     // parse form data
     form.parse(req, async (error, fields, files) => {
         if (error) {
-            //console.log("Parse error, Form: ", form)
             return res.status(500).send(error);
-        };
+        }
         try {
             // get params data
-            //console.log("in try block", files)
             const path = files.file[0].path;
-            //console.log("in try block 2")
             const buffer = fs.readFileSync(path);
             const type = await FileType.fromBuffer(buffer);
             const fileName = `image/${files.file[0].originalFilename}`;
-            //console.log("upload image with fileName ", fileName);
             const params = {
                 ACL: 'public-read',
                 Body: buffer,
@@ -67,11 +59,9 @@ router.post('/upload-image', async (req, res) => {
                 Key: fileName,
             };
             // upload image to s3
-            //console.log("just before s3 upload")
             const data = await s3.upload(params).promise()
             return res.status(200).send(data);
         } catch (err) {
-            //console.log("Try error, Form: ", form)
             console.log("Try post error ", err)
             return res.status(500).send(err);
         }
@@ -117,45 +107,14 @@ router.post('/add-post', authMiddleware, async (req, res) => {
     }
     catch(err) {
         res.status(500).json({Error: err.message});
-        //console.log(err);
+
     }
 
 })
 
-//gets all posts by all users sorted by most recent. Not really tested yet
-// router.get('/all-posts', authMiddleware ,(req,res) => {
-//
-//     console.log('hello');
-//
-//
-//     Post.find()
-//         .populate("postedBy","_id name")
-//         .populate("comments.postedBy","_id name")
-//         .sort('-createdAt')
-//         .then((posts)=>{
-//             res.json({posts})
-//         }).catch(err=>{
-//         console.log(err)
-//     })
-//
-// })
-
-//get all posts made by a user (the user who is logged in)
-// router.get('/my-post',authMiddleware,(req,res)=>{
-//
-//     Post.find({postedBy:req.user._id})
-//         .populate("PostedBy","_id name")
-//         .then(my_post=>{
-//             res.json({my_post})
-//             console.log(my_post)
-//         })
-//         .catch(err=>{
-//             console.log(err)
-//         })
-// })
 
 
-//getting otheruser's post
+//getting other user's post
 router.get("/otheruser_posts/:UserID", authMiddleware, async (req,res) => {
     User.findById(req.params.UserID)
         .then(user=>{
@@ -213,7 +172,6 @@ router.get("/getcomment", authMiddleware, async (req, res)=>{
 
 
 // Delete Endpoint
-
 router.delete("/delete", (res, req) => {
 
 })

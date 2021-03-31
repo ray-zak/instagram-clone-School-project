@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react';
+import React, { useState } from 'react';
 import {Tab, Tabs} from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
@@ -44,7 +44,7 @@ export default function Login({ setToken }) {
     const [email, setEmail] = useState();
     const [username, setUserName] = useState();
     const [password, setPassword] = useState();
-    const [confirmpassword, setConfirmPassword] = useState();
+    const [confirmPassword, setConfirmPassword] = useState();
 
     //keeps track of which form tab (login or signup) is selected
     const [selectedFormTab, setSelectedFormTab] = useState();
@@ -58,9 +58,9 @@ export default function Login({ setToken }) {
 
     const checkSignupPassword = async e =>
     {
-        console.log("Password fields: ", password, confirmpassword);
+        console.log("Password fields: ", password, confirmPassword);
 
-        if(password != confirmpassword)
+        if(password !== confirmPassword)
         {
             console.log("Passwords don't match!");
             document.getElementById("submit-button").setAttribute("disabled", true);

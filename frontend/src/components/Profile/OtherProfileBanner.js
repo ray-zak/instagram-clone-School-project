@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import axios from 'axios'
 const OtherProfileBanner = ({userId, otherUserFollowers, otherUserFollowing, otherUserUsername, otherUserId, otherUserPosts}) => {
     function follow(){

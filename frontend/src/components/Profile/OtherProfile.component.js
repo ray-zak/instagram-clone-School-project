@@ -1,8 +1,6 @@
 import React from 'react';
 import './Profile.css';
 import OtherProfileBanner from "./OtherProfileBanner";
-import Gallery from "../Gallery.component";
-import PostForm from '../PostForm.component';
 import { useEffect, useState } from 'react';
 import {useParams} from "react-router";
 import axios from "axios";

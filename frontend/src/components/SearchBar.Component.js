@@ -22,7 +22,7 @@ const SearchBarComponent = ({token}) => {
         <div>
             <input type='text' placeholder='Search' onChange={event => {setSearchTerm(event.target.value)}}></input>
             {data.filter((val => {
-                if (searchTerm == ""){
+                if (searchTerm === ""){
                     return null
                 }else if (val.username.toLowerCase().includes(searchTerm.toLowerCase())){
                     return val
