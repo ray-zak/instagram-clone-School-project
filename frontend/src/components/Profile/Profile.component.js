@@ -89,7 +89,6 @@ function Profile ({ token }) {
                 posts.unshift(data.post);
                 // update state
                 setPosts([...posts]);
-                alert('success')
                 setPost({ caption: '', imageURL: '' })
                 setShowForm(false);
             }).catch(err => console.log(err))
