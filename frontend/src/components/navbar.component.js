@@ -14,7 +14,7 @@ const Navbar = ()=>{
             <h1 className="navbar-brand" style={{"fontSize": "500%"}}>FemtoGram</h1>
             <div className="collapse navbar-collapse">
                 {
-                    token?(<ul className="navbar-nav mr-auto">
+                    token?(<ul className="navbar-nav mr-auto" style={{"fontSize": "15px"}}>
                         <li className="navbar-item">
                             <Link to="/" className="nav-link">HomePage</Link>
                         </li>
@@ -24,7 +24,7 @@ const Navbar = ()=>{
                         <li className={"navbar-item"}>
                             <Link to={"/logout"} className={"nav-link"}> Log out </Link>
                         </li>
-                        <li>
+                        <li className={"navbar-light"} style={{"margin-left": "15px"}}>
                             <SearchBarComponent token={token}/>
                         </li>
                     </ul>):""
