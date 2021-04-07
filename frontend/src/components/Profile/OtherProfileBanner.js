@@ -20,11 +20,6 @@ const OtherProfileBanner = ({userId, otherUserFollowers, otherUserFollowing, oth
     }
     return (
             <div className='profile'>
-                <div className='profile-image'>
-                    <img
-                        src='https://img.bleacherreport.net/img/images/photos/003/875/045/f747eca6d77ef4822de3a4c98bb4324e_crop_exact.jpg?w=152&h=152&fit=crop&crop=faces'
-                        alt='User'/>
-                </div>
                 <div className="profile-user-follow">
                     <h1 className="profile-user-name">{otherUserUsername}</h1>
                     {buttonDisplayed()}
@@ -35,9 +30,6 @@ const OtherProfileBanner = ({userId, otherUserFollowers, otherUserFollowing, oth
                         <li><span className='profile-stat-count'>{otherUserFollowers.length}</span> followers</li>
                         <li><span className='profile-stat-count'>{otherUserFollowing.length}</span> following</li>
                     </ul>
-                </div>
-                <div className='profile-bio'>
-                    <p><span className='profile-real-name'>Header</span> Random Bio</p>
                 </div>
         </div>
     );

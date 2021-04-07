@@ -42,7 +42,7 @@ app.use("/posts" , postRouter);
 
 // app listener
 //app.listen(port, ()=>{
-//    console.log("server is running on port "+ port)
+  //console.log("server is running on port "+ port)
 //})
 //listen elsewhere so that testing works
 export default app
