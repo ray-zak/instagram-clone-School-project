@@ -137,42 +137,52 @@ router.post("/login" , async(req,res)=>{
 router.route('/follow/:userId/:targetId').post((req, res) => {
     User.findById(req.params.userId)
         .then(user =>{
+            if(!user.following.includes(req.params.targetId)){
             user.following.push(req.params.targetId);
             user.save()
                 .then(() => res.json('User followed'))
                 .catch(err => res.status(400).json('Error: ' + err));
-        })
+        }
+        else{
+            res.json("You already follow that user !");
+            }})
         .catch(err => {console.log("Error: ", err.message)})
 
     User.findById(req.params.targetId)
         .then(targetUser =>{
+            if(!targetUser.followers.includes(req.params.userId)){
             targetUser.followers.push(req.params.userId);
             targetUser.save()
                 .then(() => res.json('Added to followers'))
                 .catch(err => res.status(400).json('Error: ' + err));
-        })
+        }})
         .catch(err => {console.log("Error: ", err.message)})
 })
 
 router.route('/unfollow/:userId/:targetId').post((req, res) =>{
     User.findById(req.params.userId)
         .then(user =>{
+            if(user.following.includes(req.params.targetId)){
             const indexToUnfollow = user.following.indexOf(req.params.targetId);
             user.following.splice(indexToUnfollow,1);
             user.save()
                 .then(() => res.json('User unfollowed'))
                 .catch(err => res.status(400).json('Error: ' + err));
-        })
+        }
+        else{
+            res.json("You don't follow that user")
+            }})
         .catch(err => {console.log("Error: ", err.message)})
 
     User.findById(req.params.targetId)
         .then(targetUser =>{
+            if(targetUser.followers.includes(req.params.userId)){
             const indexToRemoveFromFollowers = targetUser.followers.indexOf(req.params.userId);
             targetUser.followers.splice(indexToRemoveFromFollowers,1);
             targetUser.save()
                 .then(() => res.json('User removed from followed'))
                 .catch(err => res.status(400).json('Error ' + err));
-        })
+        }})
         .catch(err => {console.log("Error: ", err.message)})
 })
 
