@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import Navbar from "./components/navbar.component"
-import HomepageComponent from "./components/homepage.component";
+import Homepage from "./components/homepage.component";
 import Profile from "./components/Profile/Profile.component";
 import Login from "./components/Login/login.component";
 import useToken from './useToken';
@@ -37,7 +37,7 @@ function App () {
       <Navbar token={token}/> : <Navbar/> }
       <div className="container">
         <br />
-        <Route path="/" exact component={HomepageComponent} />
+        <Route path="/" exact component={Homepage} token={token} />
         <Route path="/profile" exact  >
           <Profile token={token}/>
         </Route>

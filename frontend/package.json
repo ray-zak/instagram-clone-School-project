@@ -50,6 +50,5 @@
     "axios": "^0.21.1",
     "mocha": "^8.3.0",
     "prop-types": "^15.7.2"
-  },
-  "type": "module"
+  }
 }
