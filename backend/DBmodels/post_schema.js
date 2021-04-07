@@ -8,6 +8,7 @@ const postSchema = new Schema({
     imageURL : {type: String},
     postedBy: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
     comments:[],
+    username: {type: String}
 },{timestamps: true});
 
 

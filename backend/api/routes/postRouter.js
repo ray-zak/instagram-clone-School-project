@@ -94,6 +94,7 @@ router.post('/add-post', authMiddleware, async (req, res) => {
             caption: caption,
             imageURL: imageURL,
             postedBy: req.user,
+            username: req.user.username,
             comments: [],
         })
         //console.log(post)
@@ -112,6 +113,17 @@ router.post('/add-post', authMiddleware, async (req, res) => {
 
 })
 
+router.get("/newsfeedposts" , authMiddleware,async (req, res)=>{
+
+    //finding the posts that are posted by all the users inside the following array of the logged in user
+    Post.find({postedBy:{$in: req.user.following} })
+        .populate("postedBy", "_id")
+        .then(posts=>{
+            res.send(posts)
+        })
+        .catch(err=>res.status(400).json(err.message));
+
+})
 
 
 //getting other user's post
