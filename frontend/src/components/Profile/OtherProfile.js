@@ -7,7 +7,7 @@ import axios from 'axios'
 import jwtDecode from 'jwt-decode'
 import OtherProfileGallery from '../OtherProfileGallery.js'
 
-const OtherProfileComponent = ({ token }) => {
+const OtherProfile = ({ token }) => {
   const [otherUserUsername, setOtherUserUsername] = useState()
   const [otherUserFollowers, setOtherUserFollowers] = useState([])
   const [otherUserFollowing, setOtherUserFollowing] = useState([])
@@ -49,4 +49,4 @@ const OtherProfileComponent = ({ token }) => {
   )
 }
 
-export default OtherProfileComponent
+export default OtherProfile

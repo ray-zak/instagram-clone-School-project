@@ -65,7 +65,7 @@ function Profile ({ token }) {
   }
 
   const onSubmit = (e) => {
-    e.preventDefault()
+    //e.preventDefault()
     // update uploading
     setUploading(true)
 

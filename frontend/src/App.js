@@ -5,10 +5,10 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 
 import Navbar from './components/Navbar'
 import Homepage from './components/Homepage'
-import Profile from './components/Profile/Profile.component'
+import Profile from './components/Profile/Profile'
 import Login from './components/Login/Login'
 import useToken from './useToken'
-import OtherProfileComponent from './components/Profile/OtherProfile.component'
+import OtherProfile from './components/Profile/OtherProfile'
 
 function App () {
   // const [token, setToken] = useState();
@@ -40,7 +40,7 @@ function App () {
           <Profile token={token} />
         </Route>
         <Route path='/otherprofile/:id' exact>
-          <OtherProfileComponent token={token} setToken={setToken} />
+          <OtherProfile token={token} setToken={setToken} />
         </Route>
         <Route path='/logout' exact component={Login} setToken='' />
       </div>
