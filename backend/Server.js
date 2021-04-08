@@ -22,7 +22,7 @@ app.use(cors());
 // DataBase Config
 mongoose.connect(process.env.CONNECTION_URL, {useNewUrlParser: true, useUnifiedTopology: true})
     .then(() => {
-        console.log("CONNECTION OPEN")
+        console.log('CONNECTION OPEN')
     })
     .catch(err => {
         console.log("ERROR")

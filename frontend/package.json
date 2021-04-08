@@ -10,6 +10,7 @@
     "font-awesome": "^4.7.0",
     "jwt-decode": "^3.1.2",
     "multiparty": "^4.2.2",
+    "node-fetch": "^2.6.1",
     "react": "^17.0.1",
     "react-bootstrap": "^1.4.3",
     "react-datepicker": "^3.4.1",
@@ -30,8 +31,16 @@
   "eslintConfig": {
     "extends": [
       "react-app",
-      "react-app/jest"
-    ]
+      "react-app/jest",
+      "eslint:recommended",
+      "plugin:react/recommended"
+    ],
+    "rules": {
+      "react/prop-types": "off"
+    },
+    "globals": {
+      "sessionStorage": true
+    }
   },
   "browserslist": {
     "production": [
@@ -48,7 +57,10 @@
   "type": "module",
   "devDependencies": {
     "axios": "^0.21.1",
+    "eslint": "^7.23.0",
+    "eslint-plugin-react": "^7.23.1",
     "mocha": "^8.3.0",
-    "prop-types": "^15.7.2"
+    "prop-types": "^15.7.2",
+    "standard": "^16.0.3"
   }
 }

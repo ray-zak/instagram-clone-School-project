@@ -1,19 +1,18 @@
 import React, { useState } from 'react'
 import DisplayingComments from './Comments/DisplayingComments'
+import fetch from 'node-fetch'
 
-const OtherProfileGallery = ({ posts }) => {
+const Gallery = ({ posts }) => {
   const [content, SetContent] = useState('')
   const [postId, SetPostId] = useState('')
 
   const addComment = async (e) => {
     // e.preventDefault()
 
-    // eslint-disable-next-line no-undef
     await fetch('http://localhost:5000/posts/add-comment', {
       method: 'Post',
       headers: {
-        // eslint-disable-next-line no-undef
-        Authorization: `Bearer ${sessionStorage.getItem('token')}`,
+        Authorization: `Bearer ${window.sessionStorage.getItem('token')}`,
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
@@ -35,9 +34,8 @@ const OtherProfileGallery = ({ posts }) => {
 
             <form onSubmit={addComment}>
               <input
-                id={post._id} value={content} type='text' placeholder='comments here'
+                id={post._id} value={content} placeholder='comments here'
                 style={{ padding: '5px 10px', width: '90%' }} onChange={(e) => {
-                // eslint-disable-next-line no-undef
                   SetContent(e.target.value)
                   SetPostId(post._id)
                 }}
@@ -56,17 +54,21 @@ const OtherProfileGallery = ({ posts }) => {
             <div className='gallery-item-info'>
 
               {
-                  post && post.comments.length > 0 ? (<DisplayingComments commentslist={post.comments} />) : ''
+                post.comments.length > 0
+                  // eslint-disable-next-line multiline-ternary
+                  ? (
+                    <DisplayingComments commentslist={post.comments} />
+                    ) : ''
               }
 
               <ul>
                 <li className='gallery-item-likes'><span
                   className='visually-hidden'
-                                                   />{post.caption}
+                  /> {post.caption}
                 </li>
                 <br />
-                <li className='gallery-item-comments'>
-                  <span className='visually-hidden'>Comments:</span>{post.comments.length} <i className='fa fa-comment' aria-hidden />
+                <li className='gallery-item-comments'><span
+                  className='visually-hidden'>Comments:</span>{post.comments.length} <i className='fa fa-comment' aria-hidden/>
                 </li>
               </ul>
             </div>
@@ -77,4 +79,5 @@ const OtherProfileGallery = ({ posts }) => {
     </div>
   )
 }
-export default OtherProfileGallery
+
+export default Gallery
