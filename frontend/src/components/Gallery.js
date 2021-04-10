@@ -6,8 +6,7 @@ const Gallery = ({ posts }) => {
   const [content, SetContent] = useState('')
   const [postId, SetPostId] = useState('')
 
-  const addComment = async (e) => {
-    // e.preventDefault()
+  const addComment = async () => {
 
     await fetch('http://localhost:5000/posts/add-comment', {
       method: 'Post',

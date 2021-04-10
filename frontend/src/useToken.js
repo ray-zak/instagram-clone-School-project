@@ -11,6 +11,7 @@ export default function useToken () {
 
   const [token, setToken] = useState(getToken())
 
+  // set Token to keep user login session active
   const saveToken = userToken => {
     window.sessionStorage.setItem('token', userToken)
     setToken(userToken)
