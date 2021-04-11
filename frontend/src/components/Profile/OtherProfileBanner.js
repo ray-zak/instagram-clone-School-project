@@ -1,13 +1,14 @@
 import React from 'react'
 import axios from 'axios'
+import '../../global'
 const OtherProfileBanner = ({ userId, otherUserFollowers, otherUserFollowing, otherUserUsername, otherUserId, otherUserPosts }) => {
   function follow () {
-    axios.post('http://localhost:5000/users/follow/' + userId + '/' + otherUserId)
+    axios.post(global.backendURL + '/users/follow/' + userId + '/' + otherUserId)
       .then(response => console.log(response.data))
     window.location.reload()
   }
   function unfollow () {
-    axios.post('http://localhost:5000/users/unfollow/' + userId + '/' + otherUserId)
+    axios.post(global.backendURL + '/users/unfollow/' + userId + '/' + otherUserId)
       .then(response => console.log(response.data))
     window.location.reload()
   }

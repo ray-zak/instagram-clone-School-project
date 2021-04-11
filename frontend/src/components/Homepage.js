@@ -3,6 +3,7 @@ import './Profile/Profile.css'
 import DisplayingComments from './Comments/DisplayingComments'
 import './Comments/DisplayingComments.css'
 import fetch from 'node-fetch'
+import '../global'
 
 const Homepage = () => {
   const [posts, SetPosts] = useState([])
@@ -10,7 +11,7 @@ const Homepage = () => {
   const [postId, SetPostId] = useState('')
 
   useEffect(() => {
-    fetch('http://localhost:5000/posts/newsfeedposts', {
+    fetch(global.backendURL + '/posts/newsfeedposts', {
       method: 'GET',
       headers: {
         Authorization: 'Bearer ' + window.sessionStorage.getItem('token')
@@ -24,7 +25,7 @@ const Homepage = () => {
   const addComment = async (e) => {
     e.preventDefault()
 
-    await fetch('http://localhost:5000/posts/add-comment', {
+    await fetch(global.backendURL + '/posts/add-comment', {
       method: 'Post',
       headers: {
         Authorization: `Bearer ${window.sessionStorage.getItem('token')}`,

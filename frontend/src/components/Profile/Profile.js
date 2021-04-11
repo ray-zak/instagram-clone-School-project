@@ -6,6 +6,7 @@ import React, { useEffect, useState } from 'react'
 import jwtDecode from 'jwt-decode'
 import axios from 'axios'
 import fetch from 'node-fetch'
+import '../../global'
 
 function Profile ({ token }) {
   const [post, setPost] = useState({ caption: '', imageURL: '' })
@@ -18,19 +19,19 @@ function Profile ({ token }) {
   const fetchHeaders = new window.Headers({ authorization: token })
 
   useEffect(() => {
-    fetch('http://localhost:5000/posts/all-posts', {
+    fetch(global.backendURL + '/posts/all-posts', {
       method: 'get', headers: fetchHeaders
     }).then(response => response.json())
       .then(data => setPosts(data))
-  })
+  }, [])
   useEffect(() => {
-    axios.get('http://localhost:5000/users/' + tokenData.id)
+    axios.get(global.backendURL + '/users/' + tokenData.id)
       .then(response => {
         setFollowers(response.data.followers)
         setFollowing(response.data.following)
         setUsername(response.data.username)
       })
-  })
+  }, [])
   const [uploading, setUploading] = useState(false)
   const onDrop = picture => {
     if (!picture[0]) {
@@ -43,7 +44,7 @@ function Profile ({ token }) {
 
     formData.append('file', picture[0])
     // upload image to server s3
-    fetch('http://localhost:5000/posts/upload-image', {
+    fetch(global.backendURL + '/posts/upload-image', {
       method: 'post',
       headers: {
         Authorization: `Bearer ${token}`
@@ -76,7 +77,7 @@ function Profile ({ token }) {
       return
     }
     // upload post to server
-    fetch('http://localhost:5000/posts/add-post', {
+    fetch(global.backendURL + '/posts/add-post', {
       method: 'post',
       headers: {
         Authorization: `Bearer ${token}`,

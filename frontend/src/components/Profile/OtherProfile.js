@@ -6,6 +6,7 @@ import { useParams } from 'react-router'
 import axios from 'axios'
 import jwtDecode from 'jwt-decode'
 import OtherProfileGallery from '../OtherProfileGallery.js'
+import '../../global'
 
 const OtherProfile = ({ token }) => {
   const [otherUserUsername, setOtherUserUsername] = useState()
@@ -17,7 +18,7 @@ const OtherProfile = ({ token }) => {
   const tokenData = jwtDecode(token)
 
   useEffect(() => {
-    axios.get('http://localhost:5000/users/' + otherUserId.id)
+    axios.get(global.backendURL + '/users/' + otherUserId.id)
       .then(response => {
         setOtherUserFollowers(response.data.followers)
         setOtherUserFollowing(response.data.following)
@@ -27,7 +28,7 @@ const OtherProfile = ({ token }) => {
   }, [])
 
   useEffect(() => {
-    fetch('http://localhost:5000/posts/otheruser_posts/' + otherUserId.id, {
+    fetch(global.backendURL + '/posts/otheruser_posts/' + otherUserId.id, {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${token}`

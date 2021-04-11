@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import DisplayingComments from './Comments/DisplayingComments'
 import fetch from 'node-fetch'
+import '../global'
 
 const Gallery = ({ posts }) => {
   const [content, SetContent] = useState('')
@@ -8,7 +9,7 @@ const Gallery = ({ posts }) => {
 
   const addComment = async () => {
 
-    await fetch('http://localhost:5000/posts/add-comment', {
+    await fetch(global.backendURL + '/posts/add-comment', {
       method: 'Post',
       headers: {
         Authorization: `Bearer ${window.sessionStorage.getItem('token')}`,

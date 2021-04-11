@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import DisplayingComments from './Comments/DisplayingComments'
+import '../global'
 
 const OtherProfileGallery = ({ posts }) => {
   const [content, SetContent] = useState('')
@@ -8,7 +9,7 @@ const OtherProfileGallery = ({ posts }) => {
   const addComment = async (e) => {
 
     // eslint-disable-next-line no-undef
-    await fetch('http://localhost:5000/posts/add-comment', {
+    await fetch(global.backendURL + '/posts/add-comment', {
       method: 'Post',
       headers: {
         // eslint-disable-next-line no-undef
@@ -53,9 +54,9 @@ const OtherProfileGallery = ({ posts }) => {
               />
             </form>
             <div className='gallery-item-info'>
-
               {
-                  post && post.comments.length > 0 ? (<DisplayingComments commentslist={post.comments} />) : ''
+                  post && post.comments && post.comments.length > 0 ?
+                      (<DisplayingComments commentslist={post.comments} />) : ''
               }
 
               <ul>
@@ -64,8 +65,9 @@ const OtherProfileGallery = ({ posts }) => {
                                                    />{post.caption}
                 </li>
                 <br />
-                <li className='gallery-item-comments'>
-                  <span className='visually-hidden'>Comments:</span>{post.comments.length} <i className='fa fa-comment' aria-hidden />
+                <li className='gallery-item-comments'><span
+                    className='visually-hidden'>Comments:</span>{ post.comments ? (post.comments.length): '' } <i
+                    className='fa fa-comment' aria-hidden />
                 </li>
               </ul>
             </div>
