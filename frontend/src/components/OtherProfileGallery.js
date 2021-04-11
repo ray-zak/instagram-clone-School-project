@@ -55,7 +55,7 @@ const OtherProfileGallery = ({ posts }) => {
             </form>
             <div className='gallery-item-info'>
               {
-                  post && post.comment && post.comments.length > 0 ?
+                  post && post.comments && post.comments.length > 0 ?
                       (<DisplayingComments commentslist={post.comments} />) : ''
               }
 
