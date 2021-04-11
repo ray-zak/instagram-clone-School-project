@@ -5,7 +5,7 @@ const OtherProfileGallery = ({ posts }) => {
   const [content, SetContent] = useState('')
   const [postId, SetPostId] = useState('')
 
-  const addComment = async () => {
+  const addComment = async (e) => {
 
     // eslint-disable-next-line no-undef
     await fetch('http://localhost:5000/posts/add-comment', {
