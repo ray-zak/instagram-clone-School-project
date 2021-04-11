@@ -22,13 +22,14 @@ function Profile ({ token }) {
             method: 'get', headers: fetch_headers
         }).then(response => response.json())
             .then(data => setPosts(data))
-    }, )
+    },[])
+
     useEffect(() =>{
         axios.get("http://localhost:5000/users/" + tokenData.id)
             .then(response => {setFollowers(response.data.followers)
             setFollowing(response.data.following)
             setUsername(response.data.username)})
-    },)
+    },[])
     const [uploading, setUploading] = useState(false)
     const onDrop = picture => {
         if (!picture[0]) {
