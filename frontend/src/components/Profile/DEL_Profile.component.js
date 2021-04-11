@@ -6,6 +6,7 @@ import PostForm from '../PostForm.component';
 import { useEffect, useState } from 'react';
 import jwt_decode from 'jwt-decode';
 import axios from "axios";
+import '../../global'
 
 function Profile ({ token }) {
     const [post, setPost] = useState({ caption: '', imageURL: '' });
@@ -18,14 +19,14 @@ function Profile ({ token }) {
     const fetch_headers = new Headers({'authorization': token});
 
     useEffect(() => {
-        fetch('http://localhost:5000/posts/all-posts', {
+        fetch(global.backendURL + '/posts/all-posts', {
             method: 'get', headers: fetch_headers
         }).then(response => response.json())
             .then(data => setPosts(data))
     },[])
 
     useEffect(() =>{
-        axios.get("http://localhost:5000/users/" + tokenData.id)
+        axios.get(global.backendURL + "/users/" + tokenData.id)
             .then(response => {setFollowers(response.data.followers)
             setFollowing(response.data.following)
             setUsername(response.data.username)})

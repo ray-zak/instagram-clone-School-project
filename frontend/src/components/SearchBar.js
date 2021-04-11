@@ -3,22 +3,23 @@ import axios from 'axios'
 import jwtDecode from 'jwt-decode'
 import './Profile/Profile.css'
 import PropTypes from 'prop-types'
+import '../global'
 
 const SearchBar = ({ token }) => {
   const tokenData = jwtDecode(token)
   const [data, setData] = useState([])
   const [searchTerm, setSearchTerm] = useState('')
   useEffect(() => {
-    axios.get('http://localhost:5000/users/')
+    axios.get(global.backendURL + '/users/')
       .then(response => {
         setData(response.data)
       })
   }, [])
   function redirectTo (id) {
     if (id === tokenData.id) {
-      window.location.href = ('http://localhost:3000/profile/')
+      window.location.href = (global.frontendURL + '/profile/')
     } else {
-      window.location.href = ('http://localhost:3000/otherprofile/' + id)
+      window.location.href = (global.frontendURL + '/otherprofile/' + id)
     }
   }
   return (

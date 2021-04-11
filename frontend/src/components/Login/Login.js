@@ -2,12 +2,12 @@ import React, { useState } from 'react'
 import { Tab, Tabs } from 'react-bootstrap'
 import PropTypes from 'prop-types'
 import fetch from 'node-fetch'
+import '../../global'
 
 import './Login.css'
 
 async function loginUser (credentials) {
-  // TODO: replace fetch with axios?
-  return fetch('http://localhost:5000/users/login', {
+  return fetch(global.backendURL + '/users/login', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -18,8 +18,7 @@ async function loginUser (credentials) {
 }
 
 async function registerUser (userInfo) {
-  // TODO: replace fetch with axios?
-  return fetch('http://localhost:5000/users/register',
+  return fetch(global.backendURL + '/users/register',
     {
       method: 'POST',
       headers:
@@ -36,7 +35,7 @@ export default function Login ({ setToken }) {
     window.sessionStorage.clear()
 
     window.location.replace('/')
-  } else if (window.location.href === 'http://localhost:3000/logout') {
+  } else if (window.location.href === global.frontendURL + '/logout') {
     window.sessionStorage.clear()
 
     window.location.replace('/')
@@ -74,7 +73,6 @@ export default function Login ({ setToken }) {
     console.log('Current form tab: ', selectedFormTab)
 
     // signup if we are on the signup tab
-    // TODO: show error on page for invalid signup
     if (selectedFormTab === 'signup') {
       console.log('Attempting signup', username, password, email)
 
@@ -103,7 +101,6 @@ export default function Login ({ setToken }) {
         setToken(data.token)
         window.location.reload()
       } else {
-        // TODO: show error on page for invalid login
         console.log('Invalid username/password')
       }
     })
