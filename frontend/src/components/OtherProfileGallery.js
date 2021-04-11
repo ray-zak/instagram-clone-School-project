@@ -65,8 +65,9 @@ const OtherProfileGallery = ({ posts }) => {
                                                    />{post.caption}
                 </li>
                 <br />
-                <li className='gallery-item-comments'>
-                  <span className='visually-hidden'>Comments:</span>{post.comments.length} <i className='fa fa-comment' aria-hidden />
+                <li className='gallery-item-comments'><span
+                    className='visually-hidden'>Comments:</span>{ post.comments ? (post.comments.length): '' } <i
+                    className='fa fa-comment' aria-hidden />
                 </li>
               </ul>
             </div>
