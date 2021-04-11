@@ -1,50 +1,36 @@
-import express from "express";
-import cors from "cors";
-import mongoose from "mongoose";
-import userRouter from "./api/routes/userRouter.js";
-import postRouter from "./api/routes/postRouter.js";
-import dotenv from "dotenv";
+import express from 'express'
+import cors from 'cors'
+// import pusher from 'pusher'
+import mongoose from 'mongoose'
+import userRouter from './api/routes/UserRouter.js'
+import postRouter from './api/routes/PostRouter.js'
+import dotenv from 'dotenv'
 
+const app = express()
+const port = process.env.PORT || 5000
 
+dotenv.config()
 
-// app Config
-const app = express();
-const port =  process.env.PORT || 5000;
+app.use(express.json())
+app.use(cors())
 
-dotenv.config();
+mongoose.connect(process.env.CONNECTION_URL, { useCreateIndex: true, useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connection.once('open', () => {
+  console.log('MongoDB connection established successfully')
+})
 
-// middlewares
-app.use(express.json());
-app.use(cors());
+app.get('/', (req, res) => {
+  console.log('server is running ')
 
+  res.send('hello world')
+})
 
+app.use('/users', userRouter)
 
-// DataBase Config
-mongoose.connect(process.env.CONNECTION_URL, {useNewUrlParser: true, useUnifiedTopology: true})
-    .then(() => {
-        console.log('CONNECTION OPEN')
-    })
-    .catch(err => {
-        console.log("ERROR")
-        console.log(err)
-    })
-// app routes
-app.get("/" ,(req,res)=>{
-    console.log("server is running ");
+app.use('/posts', postRouter)
 
-    res.send("hello world");
-});
+app.listen(port, () => {
+  console.log('server is running on port ' + port)
+})
 
-app.use("/users" , userRouter);
-app.use("/posts", postRouter);
-
-app.use("/posts" , postRouter);
-
-// app listener
-//app.listen(port, ()=>{
-  //console.log("server is running on port "+ port)
-//})
-//listen elsewhere so that testing works
 export default app
-
-
